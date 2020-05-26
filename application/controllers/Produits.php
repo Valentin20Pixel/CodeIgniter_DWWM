@@ -1,0 +1,228 @@
+<?php
+// application/controllers/Produits.php
+require("Logger.php");
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Produits extends CI_Controller
+{
+
+    // Exo 1 et 2
+    // public function liste()
+    // {
+    //     // Déclaration du tableau associatif à tranmettre à la vue
+    //     $aView = array();
+    //     $aProduits = ["Aramis", "Athos", "Clatronic", "Camping", "Green"];   
+
+    //     // Dans le tableau, on créé une donnée 'prénom' qui a pour valeur 'Dave'    
+    //     $aView["nom"] = "Loper";        
+    //     $aView["prenom"] = "Dave";  
+
+    //     $aView["liste_produits"] = $aProduits;  
+
+
+    //     // On passe le tableau en second argument de la méthode 
+    //     $this->load->view('liste', $aView);
+    // }
+
+
+    // 
+    public function produit($id)
+    {
+        // chargement du model 'ProduitsModel'
+        $this->load->model('ProduitsModel');
+        $aProduit = $this->ProduitsModel->produit($id);
+        $aView["produit"] = $aProduit;
+        // affichage du Produit
+        $this->load->view('produit', $aView);
+    }
+
+
+
+    public function liste()
+    {
+        // chargement du model 'ProduitsModel'
+        $this->load->model('ProduitsModel');
+        $aListe = $this->ProduitsModel->liste();
+        $aView["liste"] = $aListe;
+        // affichage de la liste de produits
+        $this->load->view('liste', $aView);
+    }
+
+
+
+    public function ajouter()
+    {
+
+        // chargement du model 'CategoriesModel'
+        $this->load->model('CategoriesModel');
+        $aCategories = $this->CategoriesModel->liste();
+        $aView["categories"] = $aCategories;
+        $this->load->library('upload');
+
+        // traitement du formulaire
+        if ($this->input->post()) {
+
+            $data = $this->input->post();
+            $data["pro_d_ajout"] = date("Y-m-d");
+            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
+            var_dump($data);
+
+            // verification du formulaire
+            if ($this->form_validation->run() == FALSE) {
+                // newfile("erreur validation");
+                $this->load->view('ajouter', $aView);
+            } else {
+
+                // traitement du fichier ajouter
+                if ($_FILES) {
+                    // extraction de l'extension du fichier
+                    $extension = substr(strrchr($_FILES["pro_photo"]["name"], "."), 1);
+                var_dump($this->input->post());
+
+                }
+
+                // chargement du model 'ProduitsModel'
+                $this->load->model('ProduitsModel');
+                $aId = $this->ProduitsModel->ajouter($data);
+                $aView["id"] = $aId;
+                $config['upload_path'] = './assets/img/';
+                $config['file_name'] = $aId . '.' . $extension;
+                $config['allowed_types'] = 'gif|jpg|jpeg|png';
+                $this->load->library('upload');
+                $this->upload->initialize($config);
+
+                // validations du fichier et si OK renommer+deplacement du fichier
+                if (!$this->upload->do_upload('pro_photo')) {
+                    // traitement des erreurs
+                    $errors =  $this->upload->display_errors('<div class="alert alert-danger">', '</div>');
+                    $aView["errors"] = $errors;
+                    // $this->load->view('ajouter', $aView);
+                } else {
+                    // OK donc redirection vers la liste
+                    redirect('produits/liste');
+
+                }
+            }
+        } else {
+            $this->load->view('ajouter', $aView);
+        }
+    } // -- ajouter() 
+
+
+
+
+    public function modifier($id)
+    {
+
+        // chargement du model 'CategoriesModel'
+        $this->load->model('CategoriesModel');
+        $aCategories = $this->CategoriesModel->liste();
+        $aView["categories"] = $aCategories;
+        $this->load->model('ProduitsModel');
+        $aProduit = $this->ProduitsModel->produit($id);
+        $aView["produit"] = $aProduit;
+        $this->load->library('upload');
+        // traitement du formulaire
+        if ($this->input->post()) {
+
+            $data = $this->input->post();
+            $id = $this->input->post('pro_id');
+            $data["pro_d_modif"] = date("Y-m-d H:i:s");
+            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
+            var_dump($data);
+
+
+            // verification du formulaire
+            if ($this->form_validation->run() == FALSE) {
+
+                $this->load->view('modifier', $aView);
+            } else {
+
+                // traitement du fichier 
+                if ($_FILES) {
+
+                    // extraction de l'extension du fichier
+                    $extension = substr(strrchr($_FILES["pro_photo"]["name"], "."), 1);
+                }
+                // chargement du model 'ProduitsModel'
+                $this->load->model('ProduitsModel');
+                $aId = $this->ProduitsModel->modifier($data,$id);
+                $config['upload_path'] = './assets/img/';
+                $config['file_name'] = $aId . '.' . $extension;
+                $config['allowed_types'] = 'gif|jpg|jpeg|png';
+                $this->load->library('upload');
+                $this->upload->initialize($config);
+
+                // validations du fichier et si OK renommer+deplacement du fichier
+                if (!$this->upload->do_upload('pro_photo')) {
+
+                    // traitement des erreurs
+                    $errors =  $this->upload->display_errors('<div class="alert alert-danger">', '</div>');
+                    $aView["errors"] = $errors;
+                    $this->load->view('modifier', $aView);
+                } else {
+                    // OK donc redirection vers la liste
+                    // redirect("produits/liste");
+                    // var_dump($this->input->post());
+
+                }
+            }
+        } else {
+            $this->load->view('modifier', $aView);
+        }
+    } // -- modifier()
+
+
+
+    public function supprimer($id)
+    {
+        $this->load->model('ProduitsModel');
+        $aSupp = $this->ProduitsModel->produit($id);
+        $aView["supprimer"] = $aSupp;
+        var_dump($_GET);
+        var_dump($_POST);
+        var_dump($_REQUEST);
+
+        // traitement du formulaire
+        if ($this->input->post()) {
+
+            $data = $this->input->post();
+            $this->load->model('ProduitsModel');
+            $this->ProduitsModel->supprimer($id);
+
+            redirect("produits/liste");
+        } else {
+            // redirect("views/supprimer.php");
+            
+            $this->load->view('supprimer', $aView);
+        }
+    }
+
+
+
+    // public function inscription()
+    // {
+
+    //     $this->load->model('UtilisateursModel');
+    //     $aUser = $this->UtilisateursModel->inscription();
+    //     $aView["inscription"] = $aUser;
+    //     $this->load->database();
+
+    //     if ($this->input->post()) {
+
+    //         $data = $this->input->post();
+    //         $this->form_validation->set_error_delimiters('<div class="alert">', '</div>');
+
+    //         if ($this->form_validation->run() == FALSE) {
+
+    //             $data = $this->input->post();
+    //             $password = $data['user_pass'];
+    //             $data['user_pass'] = password_hash($password, PASSWORD_BCRYPT);
+    //         } else {
+
+    //             $this->load->view('inscription', $aView);
+    //         }
+    //     } // -- inscription() 
+
+    // }
+}; // FIN
