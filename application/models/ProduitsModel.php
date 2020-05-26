@@ -27,11 +27,10 @@ class ProduitsModel extends CI_Model
     public function ajouter($data)
     {
         $this->load->database();
-        $file = $this->upload->data();
+        $this->upload->data();
         $data = $this->input->post();
         if (!$this->upload->do_upload('pro_photo')) {
             
-            var_dump($_FILES);
             $data['pro_photo'] = substr(strrchr($_FILES["pro_photo"]["name"], "."), 1);
         }
         $data["pro_d_ajout"] = date("Y-m-d");
@@ -57,9 +56,6 @@ class ProduitsModel extends CI_Model
 
     public function supprimer($id)
     {
-        $this->load->database();
-        $file = $this->upload->data();
-        $data = $this->input->post();
         $this->db->delete('jdt_produits', array('pro_id' => $id));
     }
 };

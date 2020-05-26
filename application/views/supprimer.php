@@ -1,16 +1,13 @@
 <?php include "header.php";
 	echo validation_errors();?>
-<?php echo form_open_multipart(); ?>
+<?php echo form_open(); ?>
 
 <body>
 <button class="btn btn-outline-danger"><a href="<?= site_url("http://localhost/ci/index.php"); ?>"> Retour aux produits</a></button>
-<?= var_dump($produit);?>    
-
 <div class="form-group">
-    <label for="supp" class="">Etes vous sur de vouloir supprimer le produit?</label>
+    <label for="supp" class="form-check-label">Etes vous sur de vouloir supprimer le produit?</label>
 </div>
-<?= var_dump($aView->$id);?>
-<button class="btn btn-outline-secondary" type="submit" value="<?=$produit->pro_id;?>" >Valider</button>
+<button class="btn btn-outline-secondary" name="btnsupp" type="submit" value="true" >Valider</button>
 </form>
 
 </div>

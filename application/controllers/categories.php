@@ -1,30 +1,33 @@
 <?php
-// application/controllers/Produits.php
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Categories extends CI_Controller
 {
-    public function liste()
+    public function ajoutercat()
     {
 
-        $this->load->model('CategoriesModel');
-        $aCategories = $this->CategoriesModel->liste();
+        $aCategories = $this->CategorieModel->ajouter();
         $aView["categories"] = $aCategories;
-        $this->load->view('categories', $aView);
+        $this->load->library('upload');
+        if ($this->input->post()) {
+            $data = $this->input->post();
+            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
+            var_dump($data);
+            if ($this->form_validation->run() == FALSE) {
+                $this->load->view('ajouter', $aView);
+            } else {
+                redirect('categories/ajoutercat');
+            }
+        } else {
+            $this->load->view('ajoutercat', $aView);
+
+        }
     }
-//     public function Categories()
-//     {
-
-//         $this->load->model('CategoriesModel');
-//         $aCategorie = $this->CategoriesModel->Categories();
-//         $aView["CCategorie"] = $aCategorie;
-//         $this->load->view('CCategorie', $aView);
-//     }
-
-//     public function Cajouter()
-//     {
-//         $this->load->model('CategoriesModel');
-//         $aCategorie = $this->CategoriesModel->Cajouter();
-//     }
+    public function Categories()
+    {
+        $aCategories = $this->CategorieModel->liste();
+        $aView["categ"] = $aCategories;
+        $this->load->view('categ', $aView);
+    }
 }
