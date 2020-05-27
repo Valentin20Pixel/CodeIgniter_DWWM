@@ -94,7 +94,7 @@ $config = array(
             // Reference
             'field' => 'pro_ref',
             'label' => 'pro_ref',
-            'rules' => 'required|trim|alpha_numeric_spaces',
+            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_produits.pro_ref]',
             'errors'=> array(
                 'required' => 'La %s doit être renseignée.',
                 'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
@@ -176,5 +176,29 @@ $config = array(
 
             ),
         )
+    ),
+    'Categories/ajoutercat' => array(
+        array(
+            // Nom categorie
+            'field' => 'cat_nom',
+            'label' => 'cat_nom',
+            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_categories.cat_id]',
+            'errors'=> array(
+                'required' => 'La %s doit être renseignée.',
+                'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
+            ),
+        ),
+    ),
+    'Categories/modifcat' => array(
+        array(
+            // Nom categorie
+            'field' => 'cat_nom',
+            'label' => 'cat_nom',
+            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_categories.cat_id]',
+            'errors'=> array(
+                'required' => 'La %s doit être renseignée.',
+                'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
+            ),
+        ),
     ),
 );

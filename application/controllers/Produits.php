@@ -26,14 +26,16 @@ class Produits extends CI_Controller
 
 
     // 
-    public function produit($id)
+    public function detail($id)
     {
         // chargement du model 'ProduitsModel'
         $this->load->model('ProduitsModel');
         $aProduit = $this->ProduitsModel->produit($id);
         $aView["produit"] = $aProduit;
         // affichage du Produit
-        $this->load->view('produit', $aView);
+        $this->load->view("detail", $aView);
+        $this->input->post();
+
     }
 
 
@@ -55,7 +57,7 @@ class Produits extends CI_Controller
 
         // chargement du model 'CategoriesModel'
         $this->load->model('CategorieModel');
-        $aCategories = $this->CategorieModel->liste();
+        $aCategories = $this->CategorieModel->ListCategorie();
         $aView["categories"] = $aCategories;
         $this->load->library('upload');
 
@@ -100,6 +102,7 @@ class Produits extends CI_Controller
                 } else {
                     // OK donc redirection vers la liste
                     redirect('produits/liste');
+                    // var_dump($data);
 
                 }
             }
@@ -116,7 +119,7 @@ class Produits extends CI_Controller
 
         // chargement du model 'CategoriesModel'
         $this->load->model('CategorieModel');
-        $aCategories = $this->CategorieModel->liste();
+        $aCategories = $this->CategorieModel->ListCategorie();
         $aView["categories"] = $aCategories;
         $this->load->model('ProduitsModel');
         $aProduit = $this->ProduitsModel->produit($id);
@@ -160,9 +163,8 @@ class Produits extends CI_Controller
                     $aView["errors"] = $errors;
                     $this->load->view('modifier', $aView);
                 } else {
-                    // OK donc redirection vers la liste
-                    // redirect("produits/liste");
-
+                    // OK donc redirection vers le detail
+                    $this->load->view('detail', $aView);
 
                 }
             }

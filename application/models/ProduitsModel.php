@@ -28,7 +28,7 @@ class ProduitsModel extends CI_Model
     {
         $this->load->database();
         $this->upload->data();
-        $data = $this->input->post();
+        $this->input->post();
         if (!$this->upload->do_upload('pro_photo')) {
             
             $data['pro_photo'] = substr(strrchr($_FILES["pro_photo"]["name"], "."), 1);

@@ -4,7 +4,7 @@
     <div class="container-md bg_container">
 
         <a href="<?= site_url("produits/ajouter"); ?>" class="btn btn-success">Ajout de produit</a>
-        <a href="<?= site_url("Categories/ajoutercat") ?>" class="btn btn-primary">Ajout de Categorie</a>
+        <a href="<?= site_url("Categories/ListCategorie") ?>" class="btn btn-primary">Categories</a>
         <table class="table table-hover table-sm table-responsive-sm">
             <tr class="headtable text-truncate">
                 <th scope="col" class="sticky-top">Photo</th>
@@ -31,12 +31,12 @@
                     <td><?= $row->pro_d_ajout ?></td>
                     <td><?= $row->pro_d_modif ?></td>
                     <td><?= $row->pro_bloque ?></td>
-                    <td><a href="<?= site_url("produits/supprimer/" . $row->pro_id); ?>">Supprimer</a></td>
-                    <td><a href="<?= site_url("produits/modifier/" . $row->pro_id); ?>">Modifier</a></td>
+                    <td><a href="<?= site_url("produits/detail/" . $row->pro_id); ?>" class="btn btn-outline-warning">Détails</a></td>
+
                 </tr>
                 <?php }; ?>
         </table>
         <a href="<?= site_url("produits/ajouter"); ?>" class="btn btn-success">Ajout de produit</a>
-        <a href="<?= site_url("Categories/ajoutercat") ?>" class="btn btn-primary">Ajout de Categorie</a>
+        <a href="<?= site_url("Categories/ListCategorie") ?>" class="btn btn-primary">Categories</a>
 </body>
 <?php include "footer.php"; ?>
