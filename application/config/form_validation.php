@@ -177,7 +177,7 @@ $config = array(
             ),
         )
     ),
-    'Categories/ajoutercat' => array(
+    'Categories/ListCategorie' => array(
         array(
             // Nom categorie
             'field' => 'cat_nom',
@@ -187,7 +187,7 @@ $config = array(
                 'required' => 'La %s doit être renseignée.',
                 'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
             ),
-        ),
+        )
     ),
     'Categories/modifcat' => array(
         array(
@@ -199,6 +199,36 @@ $config = array(
                 'required' => 'La %s doit être renseignée.',
                 'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
             ),
+        )
+    ),
+    'Connexion/registration' => array(
+        array(
+            // Login
+            'field' => 'login',
+            'label' => 'login',
+            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_users.login]',
+            'errors'=> array(
+                'required' => 'La %s doit être renseignée.',
+                'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
+            ),
         ),
+        array(
+            // Password
+            'field' => 'password',
+            'label' => 'password',
+            'rules' => 'trim|alpha_numeric|required',
+            'errors'=> array(
+                'alpha_numeric' => 'L\'extension %s n\'est plus valide.'
+            ),
+        ),
+        array(
+            // Confpassword
+            'field' => 'confpasswd',
+            'label' => 'confpasswd',
+            'rules' => 'trim|alpha_numeric|required',
+            'errors'=> array(
+                'alpha_numeric' => 'L\'extension %s n\'est plus valide.'
+            ),
+        )
     ),
 );

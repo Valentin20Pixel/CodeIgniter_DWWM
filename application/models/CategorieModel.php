@@ -8,7 +8,7 @@ class CategorieModel extends CI_Model
         parent::__construct();
         $this->load->database();
     } 
-    public function ListCategorie()
+    public function ListCategories()
     {
         $aCategories = $this->db->get('jdt_categories')->result();
         return $aCategories; 

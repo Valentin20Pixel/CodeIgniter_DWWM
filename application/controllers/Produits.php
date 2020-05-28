@@ -57,7 +57,7 @@ class Produits extends CI_Controller
 
         // chargement du model 'CategoriesModel'
         $this->load->model('CategorieModel');
-        $aCategories = $this->CategorieModel->ListCategorie();
+        $aCategories = $this->CategorieModel->ListCategories();
         $aView["categories"] = $aCategories;
         $this->load->library('upload');
 
@@ -119,7 +119,7 @@ class Produits extends CI_Controller
 
         // chargement du model 'CategoriesModel'
         $this->load->model('CategorieModel');
-        $aCategories = $this->CategorieModel->ListCategorie();
+        $aCategories = $this->CategorieModel->ListCategories();
         $aView["categories"] = $aCategories;
         $this->load->model('ProduitsModel');
         $aProduit = $this->ProduitsModel->produit($id);
@@ -179,9 +179,9 @@ class Produits extends CI_Controller
     {
         // chargement du model 'ProduitsModel'
         $this->load->model('ProduitsModel');
-        $data=$this->input->post("btnsupp");
         $aProduit = $this->ProduitsModel->produit($id);
         $aView["produit"] = $aProduit;
+        $data=$this->input->post("btnsupp");
         // traitement du formulaire
         if ($data) {
 

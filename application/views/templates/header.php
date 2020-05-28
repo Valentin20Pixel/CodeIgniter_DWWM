@@ -20,14 +20,14 @@
     <!-- Navbar -->
     <header>
       <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="<?= site_url("Pages/Home"); ?>"><img src="<?php echo base_url("assets/img/jarditou_logo2.png ?>")?>" alt="" title="Logo Jarditou" id="Logo" height="70" class="d-inline-block align-top">2.0</a>
+        <a class="navbar-brand" href="<?= site_url("pages/Home"); ?>"><img src="<?php echo base_url("assets/img/jarditou_logo2.png ?>")?>" alt="" title="Logo Jarditou" id="Logo" height="70" class="d-inline-block align-top">2.0</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse row justify-content-end mr-1" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
-                <a class="nav-link" href="<?= site_url("Pages/Home"); ?>">Accueil<span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="<?= site_url("pages/Home"); ?>">Accueil<span class="sr-only">(current)</span></a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="formulaire.php">Contact</a>
@@ -53,15 +53,15 @@
           <div class="card card-body bg-dark">
             <div class="form-row">
               <div class="form-group col-6">
-                <label for="login"> Identifiant :</label>
+                <label for="login" class="text-light"> Identifiant :</label>
                 <input type="text" id="login" name="login" class="form-control" value="">
               </div>
               <div class="form-group col-6">
-                <label for="password">Mot de passe :</label>
+                <label for="password" class="text-light">Mot de passe :</label>
                 <input type="text" id="password" name="password" class="form-control" value="">
               </div>
             </div>
-            <input type="submit" id="connexion" name="connexion" class="btn btn-success" value="Se connecter">
+            <input type="submit" id="connexion" name="connexion" class="btn btn-success" value="connecter">
             <a href="<?= site_url("connexion/registration"); ?>" class="btn btn-warning mt-2">S'incrire</a>
           </div>
         </div>

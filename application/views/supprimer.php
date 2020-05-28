@@ -1,5 +1,5 @@
 <?php include "header.php";
-	echo validation_errors();?>
+echo validation_errors();?>
 <?php echo form_open(); ?>
 
 <body>
@@ -9,5 +9,4 @@
 </div>
 <button class="btn btn-outline-secondary" name="btnsupp" type="submit" value="true" >Valider</button>
 </form>
-
-</div>
+</body>

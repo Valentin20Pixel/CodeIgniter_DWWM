@@ -4,45 +4,33 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Categories extends CI_Controller
 {
-    public function ajoutercat()
-    {
-        $this->load->model('CategorieModel');
-        $aCategories = $this->CategorieModel->ListCategorie();
-        $aView["categories"] = $aCategories;
-        $this->load->library('upload');
-        if ($this->input->post()) {
-            $data = $this->input->post();
-            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
-            if ($this->form_validation->run() == FALSE) {
-                var_dump($data);
-                var_dump($this->form_validation);
-            
-                $this->load->view('ajoutercat', $aView);
-            } else {
-                $data = $this->input->post();
-                var_dump($data);
-                $aCategories = $this->CategorieModel->AjouterC($data);
-                $aView["categories"] = $aCategories;
-                redirect('produits/liste');
-            }
-        } else {
-            $this->load->view('ajoutercat', $aView);
-        }
-    }
-
-// public function GetCategorie()
-// {
-//             $this->load->model('CategorieModel');
-//         $aListe = $this->CategorieModel->ListCategorie();
-//         $aView["ListCategorie"] = $aListe;
-// }
     public function ListCategorie()
     {
         $this->load->model('CategorieModel');
-        $aListe = $this->CategorieModel->ListCategorie();
+        $aListe = $this->CategorieModel->ListCategories();
         $aView["ListCategorie"] = $aListe;
-        $this->load->view('ListCategorie', $aView);
+        $btnaj = $this->input->post("ajoutcat");
+        if ($btnaj) {
+            $this->load->library('upload');
+            $this->input->post();
+            $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
+
+            if ($this->form_validation->run() == FALSE) {
+                $this->load->view('ListCategorie', $aView);
+            } else {
+                $data["cat_nom"] = $this->input->post("cat_nom");
+                if($this->input->post("cat_parent")!="")
+                $data["cat_parent"] = $this->input->post("cat_parent");
+                var_dump($data);
+                $aCategories = $this->CategorieModel->AjouterC($data);
+                $aView["categories"] = $aCategories;
+                redirect('Categories/ListCategorie');
+
+            }
+        } else {
+            $this->load->view('ListCategorie', $aView);
+        }
     }
 
 
@@ -50,31 +38,51 @@ class Categories extends CI_Controller
     public function modifcat($id)
     {
         $this->load->model('CategorieModel');
-        $aCategories = $this->CategorieModel->ListCategorie();
+        $aCategories = $this->CategorieModel->ListCategories();
         $aView["categories"] = $aCategories;
         $this->load->model('CategorieModel');
         $aModif = $this->CategorieModel->Categorie($id);
         $aView["cat"] = $aModif;
-        var_dump($aModif);
+
         $this->load->library('upload');
         if ($this->input->post()) {
             $data = $this->input->post();
             $this->form_validation->set_error_delimiters('<div class="alert alert-warning">', '</div>');
 
             if ($this->form_validation->run() == FALSE) {
-                var_dump($data);
-                var_dump($this->form_validation);
-            
                 $this->load->view('modifcat', $aView);
             } else {
                 $data = $this->input->post();
                 var_dump($data);
-                $aCategories = $this->CategorieModel->ModifC($data);
+                $aCategories = $this->CategorieModel->ModifC($data, $id);
                 $aView["categories"] = $aCategories;
                 redirect('Categories/ListCategorie');
             }
         } else {
+
             $this->load->view('modifcat', $aView);
         }
     }
+
+
+
+    public function supprimcat()
+    {
+        $this->load->model('CategorieModel');
+        $aListC = $this->CategorieModel->ListCategories();
+        $aView["categories"] = $aListC;
+        $this->load->model('CategorieModel');
+        $data = $this->input->post("btnsuppcat");
+        // traitement du formulaire
+        if ($data) {
+
+            $id = $this->input->post('cat_id');
+            $this->load->model('CategorieModel');
+            $this->CategorieModel->SupprimerC($id);
+            redirect("Categories/ListCategorie");
+        } else {
+            $this->load->view('supprimcat', $aView);
+        }
+    }
 }
+
