@@ -84,8 +84,7 @@ $config = array(
             'rules' => 'trim|exact_length[1]|is_natural',
             'errors'=> array(
                 'is_natural' => 'La valeur n\'est pas valide.',
-                'exact_length' => 'La valeur n\'est pas valide.',
-
+                'exact_length' => 'La valeur n\'est pas valide.'
             ),
         )
     ),
@@ -94,7 +93,7 @@ $config = array(
             // Reference
             'field' => 'pro_ref',
             'label' => 'pro_ref',
-            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_produits.pro_ref]',
+            'rules' => 'required|trim|alpha_numeric_spaces',
             'errors'=> array(
                 'required' => 'La %s doit être renseignée.',
                 'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
@@ -172,8 +171,7 @@ $config = array(
             'rules' => 'trim|exact_length[1]',
             'errors'=> array(
                 'is_natural' => 'La valeur n\'est plus valide.',
-                'exact_length' => 'La valeur n\'est plus valide.',
-
+                'exact_length' => 'La valeur n\'est plus valide.'
             ),
         )
     ),
@@ -184,6 +182,7 @@ $config = array(
             'label' => 'cat_nom',
             'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_categories.cat_id]',
             'errors'=> array(
+                'is_unique' => 'La %s existe déjà.',
                 'required' => 'La %s doit être renseignée.',
                 'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
             ),
@@ -196,18 +195,20 @@ $config = array(
             'label' => 'cat_nom',
             'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_categories.cat_id]',
             'errors'=> array(
+                'is_unique' => 'La %s existe déjà.',
                 'required' => 'La %s doit être renseignée.',
                 'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
             ),
         )
     ),
-    'Connexion/registration' => array(
+    'connexion/registration' => array(
         array(
             // Login
             'field' => 'login',
             'label' => 'login',
             'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_users.login]',
             'errors'=> array(
+                'is_unique' => 'La %s existe déjà.',
                 'required' => 'La %s doit être renseignée.',
                 'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
             ),
@@ -218,6 +219,7 @@ $config = array(
             'label' => 'password',
             'rules' => 'trim|alpha_numeric|required',
             'errors'=> array(
+                'required' => 'La %s doit être renseignée.',
                 'alpha_numeric' => 'L\'extension %s n\'est plus valide.'
             ),
         ),
@@ -227,8 +229,32 @@ $config = array(
             'label' => 'confpasswd',
             'rules' => 'trim|alpha_numeric|required',
             'errors'=> array(
-                'alpha_numeric' => 'L\'extension %s n\'est plus valide.'
+                'required' => 'La %s doit être renseignée.',
+                'alpha_numeric' => "L'extension %s n'est plus valide."
             ),
         )
+    ),
+    'connexion/signup' => array(
+        array(
+            // Login
+            'field' => 'login',
+            'label' => 'login',
+            'rules' => 'required|trim|alpha_numeric_spaces',
+            'errors'=> array(
+                'is_unique' => 'La %s existe déjà.',
+                'required' => 'La %s doit être renseignée.',
+                'alpha_numeric_spaces' => 'La %s n\'est plus valide.'
+            ),
+        ),
+        array(
+            // Password
+            'field' => 'password',
+            'label' => 'password',
+            'rules' => 'trim|alpha_numeric|required',
+            'errors'=> array(
+                'required' => 'La %s doit être renseignée.',
+                'alpha_numeric' => 'L\'extension %s n\'est plus valide.'
+            ),
+        ),
     ),
 );

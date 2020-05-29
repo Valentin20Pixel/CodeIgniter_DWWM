@@ -6,6 +6,7 @@ class Connexion extends CI_Controller
 {
   public function registration()
   {
+
     $this->load->model('ConnexModel');
     $aListe = $this->ConnexModel->ListConnex();
     $aView["ListConnex"] = $aListe;
@@ -13,10 +14,9 @@ class Connexion extends CI_Controller
     if ($this->input->post()) {
 
       $dat = $this->input->post();
-      $this->form_validation->set_rules("login", "password", "confpasswd");
-      if ($this->form_validation->run() == FALSE){
+      $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+      if ($this->form_validation->run() == FALSE) {
         $this->load->view('registration', $aView);
-
       } else {
         $this->load->database();
         $data["login"] = $this->input->post("login");
@@ -27,7 +27,7 @@ class Connexion extends CI_Controller
         $aView["inscription"] = $aUser;
         redirect('pages/home');
       }
-    }else{
+    } else {
       $this->load->view('registration', $aView);
     }
   } // -- inscription() 
@@ -38,19 +38,48 @@ class Connexion extends CI_Controller
     $this->load->model('ConnexModel');
     $aUser = $this->ConnexModel->User($id);
     $aView["User"] = $aUser;
-    if($this->input->post()){
+    if ($this->input->post()) {
       $dat = $this->input->post();
-      $this->form_validation->set_rules("login", "password", "required");
-      if($this->form_validation->run() == FALSE){
-        $this->load->view('home', $aView);
+      $this->form_validation->set_error_delimiters('<div class="alert alert-danger">', '</div>');
+
+      if ($this->form_validation->run() == FALSE) {
+        $this->load->view('signup', $aView);
       } else {
+        $post = $this->input->post();
         $this->load->model('ConnexModel');
-        $aProduit = $this->ConnexModel->User($id);
-        $aView["user"] = $aProduit;
-        $this->load->view("user", $aView);
-        $this->input->post();
-        redirect('pages/home');
+        $aUserc = $this->ConnexModel->User($id);
+        $aView["user"] = $aUserc;
+        $aLogin["login"] = $aUser->login;
+        $aLogin["password"] = $aUser->password;
+
+        if ($post == $aLogin) {
+          $aLogin["role"] = $aUser->role;
+
+          $this->session->set_userdata('login', $aLogin["login"]);
+          $this->session->set_userdata('role', $aLogin["role"]);
+          echo $this->session->role;
+
+          redirect('pages/home');
+        }
       }
+    } else {
+      $this->load->view('signup', $aView);
+    }
+  }
+  public function logout()
+  {
+    $id = $this->session->login;
+    $this->load->model('ConnexModel');
+    $aUser = $this->ConnexModel->User($id);
+    $aView["User"] = $aUser;
+
+    if ($this->input->post()) {
+      $this->input->post();
+      $this->session->sess_destroy();
+      redirect('pages/home');
+
+    } else {
+      $this->load->view('logout', $aView);
     }
   }
 }

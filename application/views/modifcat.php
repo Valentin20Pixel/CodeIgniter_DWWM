@@ -11,13 +11,15 @@ echo form_open_multipart();
 
     <div class="form-group">
       <label>ID</label>
-      <input type="text" name="cat_id" id="cat_id" class="form-control" value="<?php echo $cat->cat_id; ?>" readonly>
+      <input type="text" name="cat_id" id="cat_id" class="form-control" value="<?php echo set_value('cat_id', $cat->cat_id); ?>" readonly>
     </div>
 
 
     <div class="form-group">
       <label for="cat_nom">Nom de la categorie</label>
       <input type="text" name="cat_nom" id="cat_nom" class="form-control" value="<?php echo set_value('cat_nom', $cat->cat_nom); ?>">
+      <?php echo form_error('cat_nom'); ?>
+
     </div>
     <div class="form-group">
       <label for="cat_parent">Une categorie parent? Si oui selectionné une categorie :</label>

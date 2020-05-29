@@ -19,7 +19,7 @@ class ConnexModel extends CI_Model
     }
     public function User($id)
     {
-        $aUser = $this->db->get_where('jdt_users', array ('id'=> $id))->row();
+        $aUser = $this->db->get_where('jdt_users', array ('login'=> $id))->row();
         return $aUser;
     }
     public function Inscription($data)
