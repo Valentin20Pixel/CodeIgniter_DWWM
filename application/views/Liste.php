@@ -2,9 +2,10 @@
 
 <body>
     <div class="container-md bg_container">
-
-        <a href="<?= site_url("produits/ajouter"); ?>" class="btn btn-success">Ajout de produit</a>
-        <a href="<?= site_url("Categories/ListCategorie") ?>" class="btn btn-primary">Categories</a>
+        <?php if ($this->session->role == "admin") { ?>
+            <a href="<?= site_url("produits/ajouter"); ?>" class="btn btn-success">Ajout de produit</a>
+            <a href="<?= site_url("Categories/ListCategorie") ?>" class="btn btn-primary">Categories</a>
+        <?php } ?>
         <table class="table table-hover table-sm table-responsive-sm">
             <tr class="headtable text-truncate">
                 <th scope="col" class="sticky-top">Photo</th>
@@ -31,12 +32,28 @@
                     <td><?= $row->pro_d_ajout ?></td>
                     <td><?= $row->pro_d_modif ?></td>
                     <td><?= $row->pro_bloque ?></td>
+                    <td>
+                        <?php echo form_open("panier/ajouter"); ?>
+                        <!-- champ visible pour indiquer la quantité à commander -->
+                        <input type="number" class="form-control" name="pro_qte" id="pro_qte" value="1">
+                        <input type="hidden" name="pro_prix" id="pro_prix" value="<?= $row->pro_prix ?>">
+                        <input type="hidden" name="pro_id" id="pro_id" value="<?= $row->pro_id ?>">
+                        <input type="hidden" name="pro_libelle" id="pro_libelle" value="<?= $row->pro_libelle ?>">
+
+                        <!-- Bouton 'Ajouter au panier' -->
+                        <div class="form-group">
+                            <input type="submit" value="Ajouter au panier" class="btn btn-default btn-sm">
+                        </div>
+                    </td>
+                    </form>
                     <td><a href="<?= site_url("produits/detail/" . $row->pro_id); ?>" class="btn btn-outline-warning">Détails</a></td>
 
                 </tr>
-                <?php }; ?>
+            <?php }; ?>
         </table>
-        <a href="<?= site_url("produits/ajouter"); ?>" class="btn btn-success">Ajout de produit</a>
-        <a href="<?= site_url("Categories/ListCategorie") ?>" class="btn btn-primary">Categories</a>
+        <?php if ($this->session->role == "admin") { ?>
+            <a href="<?= site_url("produits/ajouter"); ?>" class="btn btn-success">Ajout de produit</a>
+            <a href="<?= site_url("Categories/ListCategorie") ?>" class="btn btn-primary">Categories</a>
+        <?php } ?>
 </body>
 <?php include "footer.php"; ?>

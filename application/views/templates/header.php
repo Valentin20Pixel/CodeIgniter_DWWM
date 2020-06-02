@@ -16,57 +16,59 @@
 <?php form_open_multipart(); ?>
 
 
-<body class="bg">
-  <div class="container-md bg_container">
-    <!-- Navbar -->
-    <header>
-      <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="<?= site_url("Pages/Home"); ?>"><img src="<?php echo base_url("assets/img/jarditou_logo2.png ?>") ?>" alt="" title="Logo Jarditou" id="Logo" height="70" class="d-inline-block align-top">2.0</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse row justify-content-end mr-1" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="<?= site_url("Pages/Home"); ?>">Accueil<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="formulaire.php">Contact</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="<?= site_url("produits/liste"); ?>">Liste</a>
-            </li>
-          </ul>
-          <?php if ($this->session->role == "admin") { ?>
-            <button class="btn btn-danger" name="deconnexion" value="true">Déconnexion</button>
-            <?php } else { ?>
-            <div class="">
-              <span class="navbar-text">
-                Connectez vous !
-              </span>
-              <button class="btn btn-danger position-relative" id="btnco" name="formconn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                Connexion
-              </button>
-            </div>
+<div class="container-md">
+  <!-- Navbar -->
+  <header>
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="<?= site_url("Pages/Home"); ?>"><img src="<?php echo base_url("assets/img/jarditou_logo2.png ?>") ?>" alt="" title="Logo Jarditou" id="Logo" height="70" class="d-inline-block align-top">2.0</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse row justify-content-end mr-1" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="<?= site_url("Pages/Home"); ?>">Accueil<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="formulaire.php">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="<?= site_url("produits/liste"); ?>">Liste</a>
+          </li>
+        </ul>
+        <?php if ($this->session->role == "admin"||$this->session->role == "client") { ?>
+          <p class="text-light">Bonjour <?= $this->session->login;?> ! </p>
+          <a class="btn btn-danger" name="deconnexion" href="<?= site_url("connexion/logout"); ?>">Déconnexion</a>
         </div>
-      </nav>
-      <!-- Voici mon formulaire de connxion au site qui determinera avec une autre page PHP qu'elle est leurs roles -->
-      <form action="" method="POST">
-        <div class="collapse" id="collapseExample">
-          <div class="card card-body bg-dark">
-            <div class="form">
 
-              <div class="form-group">
-                <a href="<?= site_url("connexion/signup"); ?>" class="btn btn-success  btn-lg btn-block">Se connecter</a>
-              </div>
-              <div class="form-group">
-                <a href="<?= site_url("connexion/registration"); ?>" class="btn btn-warning  btn-lg btn-block">S'incrire</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      <?php } ?>
+    </nav>
+  <?php } else { ?>
+    <div class="">
+      <span class="navbar-text">
+        Connectez vous !
+      </span>
+      <button class="btn btn-danger position-relative" id="btnco" name="formconn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Connexion
+      </button>
+    </div>
+
+</nav>
+<!-- Voici mon formulaire de connxion au site qui determinera avec une autre page PHP qu'elle est leurs roles -->
+<div class="collapse" id="collapseExample">
+  <div class="card card-body bg-dark">
+    <div class="form">
+
+      <div class="form-group">
+        <a href="<?= site_url("connexion/signup"); ?>" class="btn btn-success  btn-lg btn-block">Se connecter</a>
+      </div>
+      <div class="form-group">
+        <a href="<?= site_url("connexion/registration"); ?>" class="btn btn-warning  btn-lg btn-block">S'incrire</a>
+      </div>
+    </div>
   </div>
 
-  <!-- <a href="tableau.php"><img src="" alt="photo" title="photo" class="img-fluid"> </a> -->
-  </header>
+<?php } ?>
+
+
+<!-- <a href="tableau.php"><img src="" alt="photo" title="photo" class="img-fluid"> </a> -->
+</header>

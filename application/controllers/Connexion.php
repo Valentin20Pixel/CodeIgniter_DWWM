@@ -25,7 +25,7 @@ class Connexion extends CI_Controller
         $this->load->model('ConnexModel');
         $aUser = $this->ConnexModel->inscription($data);
         $aView["inscription"] = $aUser;
-        redirect('pages/home');
+        redirect('connexion/signup');
       }
     } else {
       $this->load->view('registration', $aView);
@@ -60,12 +60,21 @@ class Connexion extends CI_Controller
           echo $this->session->role;
 
           redirect('pages/home');
+        }else{
+          $this->load->view('signup', $aView);
+          echo $this->session->role;
+          var_dump($post);
+          var_dump($aLogin);
+
         }
       }
     } else {
       $this->load->view('signup', $aView);
     }
-  }
+  } // -- Connexion
+
+
+
   public function logout()
   {
     $id = $this->session->login;
@@ -81,5 +90,5 @@ class Connexion extends CI_Controller
     } else {
       $this->load->view('logout', $aView);
     }
-  }
+  }// -- Déconnexion
 }

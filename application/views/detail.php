@@ -9,7 +9,7 @@ echo form_open_multipart();
       <fieldset>
          <div class="form-group container-fluid row">
             <div class="form-group col-auto">
-               <img src="<?php echo base_url("assets/img/$produit->pro_id.$produit->pro_photo ?>")?>" alt="" id="pro_photo" class="" width="300">
+               <img src="<?php echo base_url("assets/img/$produit->pro_id.$produit->pro_photo ?>") ?>" alt="" id="pro_photo" class="" width="300">
             </div>
             <div class="form-group col">
                <div class="form-group">
@@ -65,8 +65,10 @@ echo form_open_multipart();
          </div>
          <!-- j'ai inserer 2 boutons pour la modif et la suppression -->
          <a href="<?= site_url("produits/liste"); ?>" class="btn btn-success"> Retour aux produits</a>
-         <a href="<?= site_url("produits/supprimer/" . $produit->pro_id); ?>" class="btn btn-danger">Supprimer</a>
-         <a href="<?= site_url("produits/modifier/" . $produit->pro_id); ?>" class="btn btn-warning">Modifier</a>
+         <?php if ($this->session->role == "admin") { ?>
+            <a href="<?= site_url("produits/supprimer/" . $produit->pro_id); ?>" class="btn btn-danger">Supprimer</a>
+            <a href="<?= site_url("produits/modifier/" . $produit->pro_id); ?>" class="btn btn-warning">Modifier</a>
+         <?php } ?>
       </fieldset>
       </form>
    </div>
