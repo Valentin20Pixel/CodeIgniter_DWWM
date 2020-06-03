@@ -5,15 +5,12 @@ echo form_open_multipart();
 ?>
 
 <body>
-<?php var_dump($cat);?>
-
   <div class="container-fluid">
 
     <div class="form-group">
       <label>ID</label>
       <input type="text" name="cat_id" id="cat_id" class="form-control" value="<?php echo set_value('cat_id', $cat->cat_id); ?>" readonly>
     </div>
-
 
     <div class="form-group">
       <label for="cat_nom">Nom de la categorie</label>

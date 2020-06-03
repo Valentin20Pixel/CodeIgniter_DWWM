@@ -98,7 +98,7 @@ class Produits extends CI_Controller
                     // traitement des erreurs
                     $errors =  $this->upload->display_errors('<div class="alert alert-danger">', '</div>');
                     $aView["errors"] = $errors;
-                    // $this->load->view('ajouter', $aView);
+                    $this->load->view('ajouter', $aView);
                 } else {
                     // OK donc redirection vers la liste
                     redirect('produits/liste');
@@ -145,15 +145,23 @@ class Produits extends CI_Controller
 
                     // extraction de l'extension du fichier
                     $extension = substr(strrchr($_FILES["pro_photo"]["name"], "."), 1);
+
+                    // chargement du model 'ProduitsModel'
+                    $this->load->model('ProduitsModel');
+                    $aId = $this->ProduitsModel->modifier($data,$id);
+                    $config['upload_path'] = './assets/img/';
+                    $config['file_name'] = $aId.'.'.$extension;
+                    $file_path = $config['upload_path'].$config['file_name'];
+
+                    if(file_exists($file_path)){
+
+                    unlink($file_path);
+
+                    }
+                    $config['allowed_types'] = 'gif|jpg|jpeg|png';
+                    $this->load->library('upload');
+                    $this->upload->initialize($config);
                 }
-                // chargement du model 'ProduitsModel'
-                $this->load->model('ProduitsModel');
-                $aId = $this->ProduitsModel->modifier($data,$id);
-                $config['upload_path'] = './assets/img/';
-                $config['file_name'] = $aId . '.' . $extension;
-                $config['allowed_types'] = 'gif|jpg|jpeg|png';
-                $this->load->library('upload');
-                $this->upload->initialize($config);
 
                 // validations du fichier et si OK renommer+deplacement du fichier
                 if (!$this->upload->do_upload('pro_photo')) {
@@ -161,14 +169,17 @@ class Produits extends CI_Controller
                     // traitement des erreurs
                     $errors =  $this->upload->display_errors('<div class="alert alert-danger">', '</div>');
                     $aView["errors"] = $errors;
-                    $this->load->view('modifier', $aView);
+
+                    $this->load->view('detail', $aView);
                 } else {
                     // OK donc redirection vers le detail
+
                     $this->load->view('detail', $aView);
 
                 }
             }
         } else {
+
             $this->load->view('modifier', $aView);
         }
     } // -- modifier()

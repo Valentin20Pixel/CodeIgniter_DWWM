@@ -30,11 +30,11 @@ echo form_open_multipart();
 			<select class="custom-select" name="pro_cat_id" id="pro_cat_id">
 				<option selected value="">Catégorie</option>
 				<?php foreach ($categories as $categorie) { ?>
-					<option value="<?php echo set_value('pro_cat_id', $categorie->cat_id); ?>"> <?= $categorie->cat_id . '.' . $categorie->cat_nom ?></option>
+					<option value="<?php echo $datre=set_value('pro_cat_id', $categorie->cat_id); ?>"> <?= $categorie->cat_id . '.' . $categorie->cat_nom ?></option>
 				<?php } ?>
 			</select>
 		</div>
-
+		
 		<div class="form-group">
 			<label for="pro_libelle">Libellé</label>
 			<input type="text" name="pro_libelle" id="pro_libelle" class="form-control" value="<?php echo set_value('pro_libelle'); ?>">

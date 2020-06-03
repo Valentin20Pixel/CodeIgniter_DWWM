@@ -180,7 +180,7 @@ $config = array(
             // Nom categorie
             'field' => 'cat_nom',
             'label' => 'cat_nom',
-            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_categories.cat_id]',
+            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_categories.cat_nom]',
             'errors'=> array(
                 'is_unique' => 'La %s existe déjà.',
                 'required' => 'La %s doit être renseignée.',
@@ -193,7 +193,7 @@ $config = array(
             // Nom categorie
             'field' => 'cat_nom',
             'label' => 'cat_nom',
-            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_categories.cat_id]',
+            'rules' => 'required|trim|alpha_numeric_spaces|is_unique[jdt_categories.cat_nom]',
             'errors'=> array(
                 'is_unique' => 'La %s existe déjà.',
                 'required' => 'La %s doit être renseignée.',
@@ -227,10 +227,11 @@ $config = array(
             // Confpassword
             'field' => 'confpasswd',
             'label' => 'confpasswd',
-            'rules' => 'trim|alpha_numeric|required',
+            'rules' => 'trim|alpha_numeric|required|matches[password]',
             'errors'=> array(
                 'required' => 'La %s doit être renseignée.',
-                'alpha_numeric' => "L'extension %s n'est plus valide."
+                'alpha_numeric' => "L'extension %s n'est plus valide.",
+                'matches' => 'Le % doit etre identique avec le password.'
             ),
         )
     ),

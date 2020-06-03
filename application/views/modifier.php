@@ -31,7 +31,7 @@ echo form_open_multipart();
             <select class="custom-select" name="pro_cat_id" id="selectcat">
                 <option selected value="">Catégorie</option>
                 <?php foreach ($categories as $categorie) { ?>
-                    <option value="<?php echo set_value('pro_cat_id', $produit->pro_cat_id); ?>" <?= ($produit->pro_cat_id == $categorie->cat_id) ? 'selected' : '' ?>> <?= $categorie->cat_id . '.' . $categorie->cat_nom ?></option>
+                    <option value="<?php echo set_value('pro_cat_id', $categorie->cat_id); ?>" <?= ($produit->pro_cat_id == $categorie->cat_id) ? 'selected' : '' ?>> <?= $categorie->cat_id . '.' . $categorie->cat_nom ?></option>
                 <?php } ?>
             </select>
         </div>

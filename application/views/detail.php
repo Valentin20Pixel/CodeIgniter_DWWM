@@ -63,6 +63,20 @@ echo form_open_multipart();
             <label for="modif">Date de modification : </label>
             <p><?php echo set_value('pro_d_modif', $produit->pro_d_modif); ?></p>
          </div>
+         </form>
+         <?php echo form_open("panier/ajouter"); ?>
+
+         <!-- champ visible pour indiquer la quantité à commander -->
+         <input type="number" class="form-control" name="pro_qte" id="pro_qte" value="1">
+         <input type="hidden" name="pro_prix" id="pro_prix" value="<?= $produit->pro_prix ?>">
+         <input type="hidden" name="pro_id" id="pro_id" value="<?= $produit->pro_id ?>">
+         <input type="hidden" name="pro_libelle" id="pro_libelle" value="<?= $produit->pro_libelle ?>">
+
+         <!-- Bouton 'Ajouter au panier' -->
+         <div class="form-group">
+            <input type="submit" value="Ajouter au panier" class="btn btn-default btn-sm">
+         </div>
+         </form>
          <!-- j'ai inserer 2 boutons pour la modif et la suppression -->
          <a href="<?= site_url("produits/liste"); ?>" class="btn btn-success"> Retour aux produits</a>
          <?php if ($this->session->role == "admin") { ?>
@@ -70,7 +84,7 @@ echo form_open_multipart();
             <a href="<?= site_url("produits/modifier/" . $produit->pro_id); ?>" class="btn btn-warning">Modifier</a>
          <?php } ?>
       </fieldset>
-      </form>
+
    </div>
 </body>
 <?php include "footer.php"; ?>

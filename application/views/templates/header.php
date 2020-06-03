@@ -36,13 +36,19 @@
             <a class="nav-link" href="<?= site_url("produits/liste"); ?>">Liste</a>
           </li>
         </ul>
-        <?php if ($this->session->role == "admin"||$this->session->role == "client") { ?>
-          <p class="text-light">Bonjour <?= $this->session->login;?> ! </p>
-          <a class="btn btn-danger" name="deconnexion" href="<?= site_url("connexion/logout"); ?>">Déconnexion</a>
-        </div>
 
+        <?php if ($this->session->role == "admin" || $this->session->role == "client") { ?>
+
+          <p class="text-light">Bonjour <?= $this->session->login; ?> ! </p>
+          <a class="btn btn-danger" name="deconnexion" href="<?= site_url("connexion/logout"); ?>">Déconnexion</a>
+          <a type="button" class="btn btn-success" href="<?= site_url("panier/afficherPanier"); ?>">
+            Panier <span class="badge badge-dark"><?php if($this->session->panier) echo count($this->session->panier)?> </span>
+        </a>     
+      </div>
     </nav>
+
   <?php } else { ?>
+
     <div class="">
       <span class="navbar-text">
         Connectez vous !
@@ -52,23 +58,23 @@
       </button>
     </div>
 
-</nav>
-<!-- Voici mon formulaire de connxion au site qui determinera avec une autre page PHP qu'elle est leurs roles -->
-<div class="collapse" id="collapseExample">
-  <div class="card card-body bg-dark">
-    <div class="form">
+    </nav>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body bg-dark">
+        <div class="form">
 
-      <div class="form-group">
-        <a href="<?= site_url("connexion/signup"); ?>" class="btn btn-success  btn-lg btn-block">Se connecter</a>
+          <div class="form-group">
+            <a href="<?= site_url("connexion/signup"); ?>" class="btn btn-success  btn-lg btn-block">Se connecter</a>
+          </div>
+          <div class="form-group">
+            <a href="<?= site_url("connexion/registration"); ?>" class="btn btn-warning  btn-lg btn-block">S'incrire</a>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <a href="<?= site_url("connexion/registration"); ?>" class="btn btn-warning  btn-lg btn-block">S'incrire</a>
-      </div>
-    </div>
-  </div>
 
-<?php } ?>
+    <?php } ?>
 
 
-<!-- <a href="tableau.php"><img src="" alt="photo" title="photo" class="img-fluid"> </a> -->
-</header>
+    <!-- <a href="tableau.php"><img src="" alt="photo" title="photo" class="img-fluid"> </a> -->
+  </header>
+  

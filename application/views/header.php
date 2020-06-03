@@ -36,15 +36,19 @@
             <a class="nav-link" href="<?= site_url("produits/liste"); ?>">Liste</a>
           </li>
         </ul>
+
         <?php if ($this->session->role == "admin" || $this->session->role == "client") { ?>
+
           <p class="text-light">Bonjour <?= $this->session->login; ?> ! </p>
           <a class="btn btn-danger" name="deconnexion" href="<?= site_url("connexion/logout"); ?>">Déconnexion</a>
           <a type="button" class="btn btn-success" href="<?= site_url("panier/afficherPanier"); ?>">
-            Panier <span class="badge badge-dark"><?php echo count($this->session->panier)?> </span>
-        </a>      </div>
-
+            Panier <span class="badge badge-dark"><?php if($this->session->panier) echo count($this->session->panier)?> </span>
+        </a>     
+      </div>
     </nav>
+
   <?php } else { ?>
+
     <div class="">
       <span class="navbar-text">
         Connectez vous !

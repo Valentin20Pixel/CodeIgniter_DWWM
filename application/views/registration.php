@@ -1,5 +1,4 @@
 <?php include "header.php";
-echo validation_errors();
 echo form_open_multipart();
 ?>
 <div class="container-fluid row">

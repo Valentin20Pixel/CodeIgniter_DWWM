@@ -47,7 +47,7 @@ if ($this->session->panier != null) {
           <p>TOTAL : <?= $sum = array_sum($total) ?> &euro;</p>
           
           <a href="<?= site_url("produits/liste"); ?>" class="btn btn-warning">Retour liste des produits</a>
-          <a href="<?= site_url("panier/supprimerPanier"); ?>" class="btn btn-danger">Supprimer le panier</a>
+          <a href="<?= site_url("panier/supprimerPanier"); ?>" class="btn btn-outline-danger">Supprimer le panier</a>
         </div>
       </div>
     </div>
